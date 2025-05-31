@@ -1,0 +1,35 @@
+Algorithm: mgReachabilityCheckGibis
+Autor: Matthias Gibis
+Created: 01.06.2025
+Copyright (c) 2025 Matthias Gibis
+
+struct GridPos {
+    let col: Int
+    let row: Int
+    
+    init(col: Int, row: Int) {
+        self.col = col
+        self.row = row
+    }
+
+    static var mapSideSize: Int = 32 // square, but can be changed
+
+    static var walkAbleTileCache = Array( 		// row | col
+           repeating: Array(repeating: true,
+           count: mapSideSize),
+           count: mapSideSize
+    )
+
+    func mgReachabilityCheckGibis(target: GridPos) -> Bool {
+
+    
+    }
+}
+
+
+
+
+
+
+
+
