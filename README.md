@@ -27,6 +27,10 @@ Importantly, the grid size itself does **not** significantly affect performance.
 What matters most is the distance between start and target and the layout of obstacles.  
 Thus, even on grids as large as 2^60 x 2^60, similar performance speeds could theoretically be achieved.
 
+## Theoretical Significance
+This represents the first known **constant space** solution to grid reachability,
+potentially concluding decades of incremental optimization research in this field.
+
 ## Benchmarking
 
 You can benchmark the performance of this algorithm using the iOS app **mgSearch**,  
