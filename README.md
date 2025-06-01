@@ -28,8 +28,11 @@ What matters most is the distance between start and target and the layout of obs
 Thus, even on grids as large as 2^60 x 2^60, similar performance speeds could theoretically be achieved.
 
 ## Theoretical Significance
-This represents the first known **constant space** solution to grid reachability,
-potentially concluding decades of incremental optimization research in this field.
+This algorithm is believed to be the first known **constant space** solution to the classical grid reachability problem with obstacles.
+
+Unlike flood fill, BFS, DFS or A* variants, which require O(n) space (relative to grid or path size), mgReachabilityCheckGibis uses a fixed, constant memory model, regardless of grid dimensions or path complexity.
+
+This may represent a milestone in the study of deterministic, memory-constrained navigation algorithms.
 
 ## Benchmarking
 
