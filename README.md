@@ -13,7 +13,7 @@ This algorithm **does not compute a path**, it only returns a Boolean indicating
 
 ### Memory Efficiency
 
-The algorithm is highly optimized for memory usage, requiring only **18 integers of memory**,  
+The algorithm is highly optimized for memory usage, requiring only **20 integers of memory**,  
 which means it uses **constant memory space (O(1))**, regardless of the grid size.
 
 This minimal memory footprint makes it ideal for performance-critical applications or environments with limited resources.
