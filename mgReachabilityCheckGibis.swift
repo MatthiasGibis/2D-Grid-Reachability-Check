@@ -79,7 +79,7 @@ struct GridPos {
             
             // Helper to check if we've reached the other side (aligned with target)
             var reachedOtherSide: Bool {
-                if currentRow == startY {
+                if currentRow == self.row {
                     // Moving horizontally: check if currentCol is between startX and targetCol
                     stepX == 1 ? (currentCol > startX && currentCol <= targetCol) : (currentCol < startX && currentCol >= targetCol)
                 } else if currentCol == targetCol {
