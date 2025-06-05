@@ -13,8 +13,10 @@ This algorithm **does not compute a path**, it only returns a Boolean indicating
 
 ### Memory Efficiency
 
-The algorithm is highly optimized for memory usage, requiring only **20 integers of memory**,  
-which means it uses **constant memory space (O(1))**, regardless of the grid size.
+The algorithm is highly optimized for memory usage, requiring only **20 integers of memory** in its basic (flat terrain) form,  
+and **21 integers** in the height-aware version that checks elevation differences.
+
+In both cases, it uses **constant memory space (O(1))**, regardless of the grid size.
 
 This minimal memory footprint makes it ideal for performance-critical applications or environments with limited resources.
 
@@ -26,6 +28,14 @@ Measured peak times are around **5,000 nanoseconds (5 microseconds)**.
 Importantly, the grid size itself does **not** significantly affect performance.  
 What matters most is the distance between start and target and the layout of obstacles.  
 Thus, even on grids as large as 2^60 x 2^60, similar performance speeds could theoretically be achieved.
+
+## How It Works
+
+1. The algorithm attempts a straight-line traversal from start to target, moving tile by tile.
+2. At each step, it checks if the height difference is within allowed limits.
+3. If it encounters an obstacle (e.g., impassable terrain or steep height change), it enters "outline tracing" mode:
+    - It follows the boundary of the obstacle (clockwise or counterclockwise) until it can resume straight-line movement.
+4. If the target is reached, the function returns `true`; if tracing loops back to its start, it returns `false`.
 
 ## Theoretical Significance
 This algorithm is believed to be the first known **constant space** solution to the classical grid reachability problem with obstacles.
