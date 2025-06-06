@@ -51,7 +51,7 @@ struct GridPos {
                  .withUnsafeBufferPointer({ $0[currentCol] })
         }
         
-        var currentCost = fastCacheAccess
+        var currentHeight = fastCacheAccess
 
         // Side length of the square map (used for bounds checking)
         let cacheCount = cache.count
@@ -59,9 +59,9 @@ struct GridPos {
         while true {
             // Move horizontally towards the target column while on walkable tiles
             while currentCol != targetCol {
-                currentCost = fastCacheAccess
+                currentHeight = fastCacheAccess
                 currentCol += stepX
-                if abs(fastCacheAccess - currentCost) > maxHeightDifference {
+                if abs(fastCacheAccess - currentHeight) > maxHeightDifference {
                     currentCol -= stepX // Undo move if height difference too high
                     break
                 }
@@ -70,9 +70,9 @@ struct GridPos {
             // If aligned horizontally, move vertically towards the target row
             if currentCol == targetCol {
                 while currentRow != targetRow {
-                    currentCost = fastCacheAccess
+                    currentHeight = fastCacheAccess
                     currentRow += stepY
-                    if abs(fastCacheAccess - currentCost) > maxHeightDifference {
+                    if abs(fastCacheAccess - currentHeight) > maxHeightDifference {
                         currentRow -= stepY // Undo move if height difference too high
                         break
                     }
@@ -108,11 +108,11 @@ struct GridPos {
                 currentCol += dxs[dir]
                 currentRow += dys[dir]
                 
-                if abs(fastCacheAccess - currentCost) > maxHeightDifference {
+                if abs(fastCacheAccess - currentHeight) > maxHeightDifference {
                     // If new position not walkable, backtrack and adjust direction
                     currentCol -= dxs[dir]
                     currentRow -= dys[dir]
-                    currentCost = fastCacheAccess
+                    currentHeight = fastCacheAccess
                     
                     dir = (dir - outlineDir) & 3 // rotate direction back
                     
@@ -134,7 +134,7 @@ struct GridPos {
                         dir = (startDirValue + 2) & 3 // turn 180 degrees
                         startDirValue = dir
                         continue // Skip the rest of the loop to avoid further checks this iteration
-                    } else if abs(fastCacheAccess - currentCost) > maxHeightDifference {
+                    } else if abs(fastCacheAccess - currentHeight) > maxHeightDifference {
                         // Still blocked, turn direction counterclockwise and continue
                         currentCol -= dxs[dir]
                         currentRow -= dys[dir]
