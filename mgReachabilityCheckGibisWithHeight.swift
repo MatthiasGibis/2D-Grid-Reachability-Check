@@ -50,13 +50,13 @@ struct GridPos {
             cache.withUnsafeBufferPointer({ $0[currentRow] })
                  .withUnsafeBufferPointer({ $0[currentCol] })
         }
-        
-        var currentHeight = fastCacheAccess
 
         // Side length of the square map (used for bounds checking)
         let cacheCount = cache.count
 
         while true {
+            var currentHeight = fastCacheAccess
+            
             // Move horizontally towards the target column while on walkable tiles
             while currentCol != targetCol {
                 currentHeight = fastCacheAccess
