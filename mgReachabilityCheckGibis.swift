@@ -12,12 +12,13 @@ struct GridPos {
         self.row = row
     }
 
-    static var mapSideSize: Int = 32 // square, but can be changed
+    static var mapWidth: Int = 32
+    static var mapHeight: Int = 32
 
     static var walkAbleTileCache = Array( 		// row | col
            repeating: Array(repeating: true,
-           count: mapSideSize),
-           count: mapSideSize
+           count: mapWidth),
+           count: mapHeight
     )
 
     func mgReachabilityCheckGibis(target: GridPos) -> Bool {
@@ -47,8 +48,9 @@ struct GridPos {
                  .withUnsafeBufferPointer({ $0[currentCol] })
         }
 
-        // Side length of the square map (used for bounds checking)
-        let cacheCount = cache.count
+        // Side length of the map (used for bounds checking)
+        let mapWidth = GridPos.mapWidth
+        let mapHeight = GridPos.mapHeight
 
         while true {
             // Move horizontally towards the target column while on walkable tiles
@@ -111,7 +113,7 @@ struct GridPos {
                     currentRow += dys[dir] //
                     
                     // Check for out-of-bounds and handle accordingly
-                    if currentCol < 0 || currentRow < 0 || currentCol >= cacheCount || currentRow >= cacheCount {
+                    if currentCol < 0 || currentRow < 0 || currentCol >= mapWidth || currentRow >= mapHeight {
                         if outlineDir == 3 { // Already tried both directions and went out of map a second time,
                         // so the start or target tile cannot be reached
                             return false
