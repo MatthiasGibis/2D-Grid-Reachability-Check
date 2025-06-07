@@ -13,7 +13,7 @@ This algorithm **does not compute a path**, it only returns a Boolean indicating
 
 ### Memory Efficiency
 
-The algorithm is highly optimized for memory usage, requiring only **20 integers of memory** in its basic (flat terrain) form,  
+The algorithm is highly optimized for memory usage, requiring only **21 integers of memory** in its basic (flat terrain) form,  
 and **21 integers** in the height-aware version that checks elevation differences.
 
 In both cases, it uses **constant memory space (O(1))**, regardless of the grid size.
