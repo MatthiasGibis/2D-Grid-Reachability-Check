@@ -32,11 +32,11 @@ struct GridPos {
         // Extract target position (column and row)
         let targetCol = target.col, targetRow = target.row
 
-        // Early exit if the target tile is marked as blocked.
+        // Early exit if start or target tile is marked as blocked.
         // Int16.max is used as a "blocked" marker – i.e., no valid height value.
         // This typically represents terrain that cannot be traversed at all,
         // such as water, trees, buildings, or impassable map boundaries.
-        if cache[targetRow][targetCol] == Int16.max { return false }
+        if cache[targetRow][targetCol] == Int16.max || cache[self.row][self.col] == Int16.max { return false }
       
         var currentRow = self.row, currentCol = self.col
         
