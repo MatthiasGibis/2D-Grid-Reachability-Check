@@ -32,8 +32,8 @@ struct GridPos {
         // Extract target position (column and row)
         let targetCol = target.col, targetRow = target.row
 
-        // Early exit if the target tile is not walkable
-        if !cache[targetRow][targetCol] { return false }
+        // Early exit if start or target tile is not walkable
+        if !cache[targetRow][targetCol] || !cache[self.row][self.col] { return false }
 
         var currentRow = row, currentCol = col
 
