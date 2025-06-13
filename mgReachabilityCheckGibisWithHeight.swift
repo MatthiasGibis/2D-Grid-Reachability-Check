@@ -41,8 +41,8 @@ struct GridPos {
         var currentRow = self.row, currentCol = self.col
         
         // Determine step direction on X and Y axes (−1, 0, or +1)
-        let stepX = targetCol > currentCol ? 1 : (targetCol < currentCol ? -1 : 0)
-        let stepY = targetRow > currentRow ? 1 : (targetRow < currentRow ? -1 : 0)
+        let stepX = targetCol > currentCol ? 1 : -1
+        let stepY = targetRow > currentRow ? 1 : -1
 
         // Alternative way to access cache quickly – slightly faster (by a few ns),
         // but less readable than "cache[currentRow][currentCol]"
