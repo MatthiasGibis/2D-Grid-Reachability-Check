@@ -40,7 +40,7 @@ struct GridPos {
       
         var currentRow = self.row, currentCol = self.col
         
-        // Determine step direction on X and Y axes (−1, 0, or +1)
+        // Step is always either -1 or +1 — 0 is never used
         let stepX = targetCol > currentCol ? 1 : -1
         let stepY = targetRow > currentRow ? 1 : -1
 
