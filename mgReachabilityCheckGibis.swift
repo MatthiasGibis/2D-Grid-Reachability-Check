@@ -37,7 +37,7 @@ struct GridPos {
 
         var currentRow = row, currentCol = col
 
-        // Determine step direction on X and Y axes (−1, 0, or +1)
+        // Step is always either -1 or +1 — 0 is never used
         let stepX = targetCol > currentCol ? 1 : -1
         let stepY = targetRow > currentRow ? 1 : -1
 
@@ -131,7 +131,7 @@ struct GridPos {
                         // Still blocked, turn direction counterclockwise and continue
                         currentCol -= dxs[dir]
                         currentRow -= dys[dir]
-                        dir = (dir - outlineDir) & 3 // -90° drehen
+                        dir = (dir - outlineDir) & 3 // -90°
                     } else if reachedOtherSide {
                         // found a path around obstacle to target
                         break
