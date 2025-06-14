@@ -102,7 +102,7 @@ struct GridPos {
                 currentCol += dxs[dir]
                 currentRow += dys[dir]
                 
-                if currentCol < 0 || currentRow < 0 || currentCol >= cacheCount || currentRow >= cacheCount {
+                if currentCol < 0 || currentRow < 0 || currentCol >= mapWidth || currentRow >= mapHeight {
                     if outlineDir == 3 { // Already tried both directions and went out of map a second time,
                         // so the start or target tile cannot be reached
                         return false
