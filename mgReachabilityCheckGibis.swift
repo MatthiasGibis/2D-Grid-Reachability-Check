@@ -98,47 +98,54 @@ struct GridPos {
             
             // Begin outline following loop to find a path around obstacles
             while true {
-                dir = (dir + outlineDir) & 3 // rotate direction clockwise or counterclockwise
+                // Follow the wall in the current direction (wall-following strategy)
                 currentCol += dxs[dir]
                 currentRow += dys[dir]
                 
-                if !fastCacheAccess {
+                if currentCol < 0 || currentRow < 0 || currentCol >= cacheCount || currentRow >= cacheCount {
+                    if outlineDir == 3 { // Already tried both directions and went out of map a second time,
+                        // so the start or target tile cannot be reached
+                        return false
+                    }
+                    dir = (startDirValue + 2) & 3 // turn 180 degrees
+                    
+                    startDirValue = 4
+                    // Mark that we've already gone out of bounds once.
+                    // This prevents an early return in the later if-branch.
+                    // From this point on, only two possibilities remain:
+                    // 1. The obstacle can be bypassed counterclockwise (outlineDir = 3).
+                    // 2. We go out of bounds a second time — meaning there's definitely no path (return false).
+
+                    outlineDir = 3 // try counterclockwise direction
+                    
+                    currentCol = startX // reset position to start of outline trace
+                    currentRow = startY //
+                } else if !fastCacheAccess {
                     // If new position not walkable, backtrack and adjust direction
                     currentCol -= dxs[dir]
                     currentRow -= dys[dir]
+                    dir = (dir - outlineDir) & 3
+                } else {
+                    if reachedOtherSide {
+                        // found a path around obstacle to target
+                        break
+                    }
                     
-                    dir = (dir - outlineDir) & 3 // rotate direction back
+                    // rotate direction clockwise or counterclockwise
+                    // and try after the step before to go around the wall
+                    dir = (dir + outlineDir) & 3
+                    currentCol += dxs[dir]
+                    currentRow += dys[dir]
                     
-                    currentCol += dxs[dir] // move straight ahead
-                    currentRow += dys[dir] //
-                    
-                    // Check for out-of-bounds and handle accordingly
-                    if currentCol < 0 || currentRow < 0 || currentCol >= mapWidth || currentRow >= mapHeight {
-                        if outlineDir == 3 { // Already tried both directions and went out of map a second time,
-                        // so the start or target tile cannot be reached
-                            return false
-                        }
-
-                        outlineDir = 3 // try counterclockwise direction
-                        
-                        currentCol = startX // reset position to start of outline trace
-                        currentRow = startY //
-                        
-                        dir = (startDirValue + 2) & 3 // turn 180 degrees
-                        startDirValue = dir
-                        continue // Skip the rest of the loop to avoid further checks this iteration
-                    } else if !fastCacheAccess {
-                        // Still blocked, turn direction counterclockwise and continue
+                    if !fastCacheAccess {
+                        // If new position not walkable, backtrack and adjust direction
                         currentCol -= dxs[dir]
                         currentRow -= dys[dir]
-                        dir = (dir - outlineDir) & 3 // -90°
+                        dir = (dir - outlineDir) & 3
                     } else if reachedOtherSide {
                         // found a path around obstacle to target
                         break
                     }
-                } else if reachedOtherSide {
-                    // found a path around obstacle to target
-                    break
                 }
                 
                 // If returned to the start position and direction, we've looped in a circle,
@@ -150,11 +157,3 @@ struct GridPos {
         }
     }
 }
-
-
-
-
-
-
-
-
