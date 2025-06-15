@@ -126,11 +126,6 @@ struct GridPos {
                     currentRow -= dys[dir]
                     dir = (dir - outlineDir) & 3
                 } else {
-                    if reachedOtherSide {
-                        // found a path around obstacle to target
-                        break
-                    }
-                    
                     // rotate direction clockwise or counterclockwise
                     // and try after the step before to go around the wall
                     dir = (dir + outlineDir) & 3
@@ -142,7 +137,9 @@ struct GridPos {
                         currentCol -= dxs[dir]
                         currentRow -= dys[dir]
                         dir = (dir - outlineDir) & 3
-                    } else if reachedOtherSide {
+                    } 
+                    
+                    if reachedOtherSide {
                         // found a path around obstacle to target
                         break
                     }
