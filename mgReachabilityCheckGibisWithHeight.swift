@@ -1,3 +1,8 @@
+Algorithm: mgReachabilityCheckGibisWithHeight
+Autor: Matthias Gibis
+Created: 01.06.2025
+Copyright (c) 2025 Matthias Gibis
+
 struct GridPos {
     let col: Int
     let row: Int
